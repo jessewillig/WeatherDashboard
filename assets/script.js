@@ -43,6 +43,14 @@ function forcast () {
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        // forcast day 1 of 5, date, temp, humidity
         
+        // forcast day 2 of 5, date, temp, humidity
+
+        // forcast day 3 of 5, date, temp, humidity
+
+        // forcast day 4 of 5, date, temp, humidity
+
+        // forcast day 5 of 5, date, temp, humidity
     })
 };
