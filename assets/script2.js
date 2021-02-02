@@ -1,44 +1,72 @@
 var cities = [];
 
-function init () {
-    currentWeather();
-};
-
-function currentWeather () {
-    var userInput = $("input").val();
-    console.log(userInput);
-    
-    var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
-    
-    $.ajax({
-        url: weatherUrl,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-        $("#today").append(cityTag);
-        // current city name
-        var currentCity = response.name;
-        var cityTag = $("<h1>").text(currentCity);
-        $("#today").append(cityTag);
-        // current temperature
-        var currentTemp = response.main.temp;
-        var temperatureTag = $("<h5>").text("Temperature: " + currentTemp);
-        $("#today").append(temperatureTag);
-        console.log(currentTemp);
-        // wind speed
-        var currentWind = response.wind.speed;
-        var windTag = $("<h5>").text("Wind Speed: " + currentWind);
-        $("#today").append(windTag);
-        // humidity
-        var currentHumidity = response.main.humidity;
-        var humidityTag = $("<h5>").text("Humidity: " + currentHumidity);
+// on.click even for search button
+$(document).ready(function () {
+    $("#search-button").on("click", function () {
+        var searchValue = $("#searchList").val();
+        // clear input box
+        $("#searchList").val("");
+        currentWeather(searchValue);
     });
-};
+    $(".history").on("click", "li", function () {
+        currentWeather($(this).text());
+    });
+
+    function makeRow(text) {
+        var li = $("<li>").addClass("list-group-item list-group-item-action").text(text);
+        $(".history").append(li);
+    };
+    
+    function init() {
+        currentWeather();
+    };
+    
+    function currentWeather(searchValue) {
+        var userInput = $("input").val();
+        console.log(userInput);
+    
+        var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    
+        $.ajax({
+            url: weatherUrl,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                if (history.indexOf(searchValue) === -1) {
+                    history.pushState(searchValue);
+                    window.localStorage.setItem("history", JSON.stringify(history));
+    
+                    makeRow(searchValue);
+                };
+            }
+        }).then(function (response) {
+            console.log(response);
+            $("#today").append(cityTag);
+            // current city name
+            var currentCity = response.name;
+            var cityTag = $("<h1>").text(currentCity);
+            $("#today").append(cityTag);
+            // current temperature
+            var currentTemp = response.main.temp;
+            var temperatureTag = $("<h5>").text("Temperature: " + currentTemp);
+            $("#today").append(temperatureTag);
+            console.log(currentTemp);
+            // wind speed
+            var currentWind = response.wind.speed;
+            var windTag = $("<h5>").text("Wind Speed: " + currentWind);
+            $("#today").append(windTag);
+            // humidity
+            var currentHumidity = response.main.humidity;
+            var humidityTag = $("<h5>").text("Humidity: " + currentHumidity);
+        });
+    };
+});
+
 
 // function for forcast
-function forecast () {
+function forcast() {
     var userInput = $("input").val();
-    var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    var weatherUrl = `api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
 
     $.ajax({
         url: weatherUrl,
@@ -97,15 +125,14 @@ function forecast () {
     });
 };
 
-// push user input city to array
-function pushCities() {
-    var userInput = $("input").val();
-    cities.push(userInput)
-    // console.log("test" + cities);
-    storeCities();
-    getCities();
-};
-
+// // push user input city to array
+// function pushCities() {
+//     var userInput = $("input").val();
+//     cities.push(userInput)
+//     // console.log("test" + cities);
+//     storeCities();
+//     getCities();
+// };
 
 // store user input city to local storage
 function storeCities() {
@@ -123,36 +150,33 @@ function getCities() {
 
 // create new button when user searches for city
 function createBtn(event) {
-    $(".history").empty();
+    $(".searchList").empty();
     for (var i = 0; i < cities.length; i++) {
         var city = cities[i];
         var newBtn = $("<button>").text(city);
         $("button").addClass("newSearch");
-        $(".history").append(newBtn);
+        $(".searchList").append(newBtn);
     };
-    $(newBtn).click(function (event) {
-        var city = $(this).text();
-        forecast(city);
-        currentWeather(city);
-    });
 };
 
 getCities();
 
-// on.click event for search button
-$("#search-button").on("click", function (event) {
-    event.preventDefault();
-    forecast();
-    currentWeather();
-    pushCities();
-    $("input").val("");
-});
+// // on.click event for search button
+// $("#search-button").on("click", function (event) {
+//     event.preventDefault();
+//     forecast();
+//     currentWeather();
+//     pushCities();
+//     $("input").val("");
+// });
 
-// on.submit for form input
-$("form").on("submit", function (event) {
-    event.preventDefault();
-    forecast();
-    currentWeather();
-    pushCities();
-    $("input").val("");
-});
+// // on.submit for form input
+// $("form").on("submit", function (event) {
+//     // console.log("consider me searched");
+//     // console.log($(this).prev().val());
+//     event.preventDefault();
+//     forecast();
+//     currentWeather();
+//     pushCities();
+//     $("input").val("");
+// });
