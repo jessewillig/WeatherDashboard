@@ -36,7 +36,7 @@ function currentWeather () {
 // function for forcast
 function forcast () {
     var userInput = $("input").val();
-    var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    var weatherUrl = `api.openweathermap.org/data/2.5/forecast?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
 
     $.ajax({
         url: weatherUrl,
@@ -44,13 +44,53 @@ function forcast () {
     }).then(function (response) {
         console.log(response);
         // forcast day 1 of 5, date, temp, humidity
-        
+        var day1 = $("#day1").text("Date: " + response.list[0].dt_txt);
+        $("#day1").append(day1);
+
+        var temperature1 = $(".currentTemperature1").text("Temperature: " + response.list[0].main.temp);
+        $(".currentTemperature1").append(temperature1);
+
+        var humidity1 = $(".currentHumidity1").text("Humidity: " + response.list[0].main.humidity);
+        $(".currentHumidity1").append(humidity1);
+
         // forcast day 2 of 5, date, temp, humidity
+        var day2 = $("#day2").text("Date: " + response.list[9].dt_txt);
+        $("#day2").append(day2);
+
+        var temperature2 = $(".currentTemperature2").text("Temperature: " + response.list[9].main.temp);
+        $(".currentTemperature2").append(temperature2);
+
+        var humidity2 = $(".currentHumidity2").text("Humidity: " + response.list[9].main.humidity);
+        $(".currentHumidity2").append(humidity2);
 
         // forcast day 3 of 5, date, temp, humidity
+        var day3 = $("#day3").text("Date: " + response.list[17].dt_txt);
+        $("#day3").append(day3);
+
+        var temperature3 = $(".currentTemperature3").text("Temperature: " + response.list[17].main.temp);
+        $(".currentTemperature3").append(temperature3);
+
+        var humidity3 = $(".currentHumidity3").text("Humidity: " + response.list[17].main.humidity);
+        $(".currentHumidity3").append(humidity3);
 
         // forcast day 4 of 5, date, temp, humidity
+        var day4 = $("#day4").text("Date: " + response.list[25].dt_txt);
+        $("#day4").append(day4);
+
+        var temperature4 = $(".currentTemperature4").text("Temperature: " + response.list[25].main.temp);
+        $(".currentTemperature4").append(temperature4);
+
+        var humidity4 = $(".currentHumidity4").text("Humidity: " + response.list[25].main.humidity);
+        $(".currentHumidity4").append(humidity4);
 
         // forcast day 5 of 5, date, temp, humidity
+        var day5 = $("#day5").text("Date: " + response.list[33].dt_txt);
+        $("#day5").append(day5);
+
+        var temperature5 = $(".currentTemperature5").text("Temperature: " + response.list[33].main.temp);
+        $(".currentTemperature5").append(temperature5);
+
+        var humidity5 = $(".currentHumidity5").text("Humidity: " + response.list[33].main.humidity);
+        $(".currentHumidity5").append(humidity5);
     })
 };
