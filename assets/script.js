@@ -135,6 +135,7 @@ function createBtn(event) {
             console.log(city);
             forecast(city);
             currentWeather(city);
+            // localStorage.removeItem(currentWeather);
         });
     };
 };
