@@ -2,13 +2,14 @@ var cities = [];
 
 function init () {
     currentWeather();
+    forecast();
 };
 
-function currentWeather () {
+function currentWeather (cityName) {
     var userInput = $("input").val();
     console.log(userInput);
     
-    var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
     
     $.ajax({
         url: weatherUrl,
@@ -18,7 +19,7 @@ function currentWeather () {
         $("#today").append(cityTag);
         // current city name
         var currentCity = response.name;
-        var cityTag = $("<h1>").text(currentCity);
+        var cityTag = $("<h2>").text(currentCity);
         $("#today").append(cityTag);
         // current temperature
         var currentTemp = response.main.temp;
@@ -36,9 +37,9 @@ function currentWeather () {
 };
 
 // function for forcast
-function forecast () {
-    var userInput = $("input").val();
-    var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userInput}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+function forecast (cityName) {
+    
+    var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
 
     $.ajax({
         url: weatherUrl,
@@ -129,21 +130,23 @@ function createBtn(event) {
         var newBtn = $("<button>").text(city);
         $("button").addClass("newSearch");
         $(".history").append(newBtn);
+        $(newBtn).click(function searchHistory(event) {
+            var city = $(this).text();
+            console.log(city);
+            forecast(city);
+            currentWeather(city);
+        });
     };
-    $(newBtn).click(function (event) {
-        var city = $(this).text();
-        forecast(city);
-        currentWeather(city);
-    });
 };
 
 getCities();
 
 // on.click event for search button
 $("#search-button").on("click", function (event) {
+    var userInput = $("input").val();
     event.preventDefault();
-    forecast();
-    currentWeather();
+    forecast(userInput);
+    currentWeather(userInput);
     pushCities();
     $("input").val("");
 });
