@@ -124,7 +124,7 @@ function getCities() {
 
 // create new button when user searches for city
 function createBtn(event) {
-    $(".history").empty();
+    $("#today").empty();
     for (var i = 0; i < cities.length; i++) {
         var city = cities[i];
         var newBtn = $("<button>").text(city);
