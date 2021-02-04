@@ -33,6 +33,7 @@ function currentWeather (cityName) {
         // humidity
         var currentHumidity = response.main.humidity;
         var humidityTag = $("<h5>").text("Humidity: " + currentHumidity);
+        $("#today").append(humidityTag);
     });
 };
 
