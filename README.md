@@ -10,7 +10,7 @@ This weather Dashboard is designed to give you current, up-to-date weather whene
 * Humidity
 
 # Link to deployed app:
-* Click [here]() to use!
+* Click [here](https://jessewillig.github.io/hw6-WeatherDashboard/) to use!
 ![weatherDashboard](./assets/images/weatherimage.png)
 
 ## Built With
