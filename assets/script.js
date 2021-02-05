@@ -16,11 +16,14 @@ function currentWeather (cityName) {
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        $("#today").empty();
         $("#today").append(cityTag);
+        console.log(cityTag);
         // current city name
         var currentCity = response.name;
         var cityTag = $("<h2>").text(currentCity);
         $("#today").append(cityTag);
+        console.log(cityTag);
         // current temperature
         var currentTemp = response.main.temp;
         var temperatureTag = $("<h5>").text("Temperature: " + currentTemp);
