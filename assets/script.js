@@ -50,6 +50,7 @@ function forecast (cityName) {
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        // $("#forecast").empty();
         // forcast day 1 of 5, date, temp, humidity
         var day1 = $("#day1").text("Date: " + response.list[0].dt_txt);
         $("#day1").append(day1);
@@ -114,17 +115,49 @@ function forecast (cityName) {
             $(".symbol1").append(newImg1);
             symbolUrl = "https://openweathermap.org/img/wn/" + response.list[8].weather[0].icon + ".png"
             var newImg2 = $(`<img src="${symbolUrl}">`);
+            $(".symbol2").empty()
             $(".symbol2").append(newImg2);
             symbolUrl = "https://openweathermap.org/img/wn/" + response.list[16].weather[0].icon + ".png"
             var newImg3 = $(`<img src="${symbolUrl}">`);
+            $(".symbol3").empty()
             $(".symbol3").append(newImg3);
             symbolUrl = "https://openweathermap.org/img/wn/" + response.list[24].weather[0].icon + ".png"
             var newImg4 = $(`<img src="${symbolUrl}">`);
+            $(".symbol4").empty()
             $(".symbol4").append(newImg4);
             symbolUrl = "https://openweathermap.org/img/wn/" + response.list[32].weather[0].icon + ".png"
             var newImg5 = $(`<img src="${symbolUrl}">`);
+            $(".symbol5").empty()
             $(".symbol5").append(newImg5);
         });  
+    });
+};
+
+// Calling UV Index API
+// var longitude = response.coord.lon;
+// var latitude = response.coord.lat;
+
+// uvIndex(longitude, latitude);
+
+// UV Index called from API
+function uvIndex(longitude, latitude) {
+    var uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${atitude}&lon=${longitude}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    var uvIndex = $("#uv-index")
+    $.ajax({
+        url: uvQuery,
+        method: "GET"
+    }).then(function (uvResponse) {
+        $("#uv-color").text(uvResponse.value)
+
+        // Set color depending on uv index value
+        if (uvResponse.value < 4.5) {
+            $("#uv-color").css("background-color", "green")
+        } else if (uvResponse.value < 9 && uvResponse.value >= 4.5) {
+            $("#uv-color").css("background-color", "yellow")
+        }
+        else {
+            $("#uv-color").css("background-color", "red")
+        }
     });
 };
 
