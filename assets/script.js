@@ -1,16 +1,16 @@
 var cities = [];
 
-function init () {
+function init() {
     currentWeather();
     forecast();
 };
 
-function currentWeather (cityName) {
+function currentWeather(cityName) {
     var userInput = $("input").val();
     console.log(userInput);
-    
+
     var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
-    
+
     $.ajax({
         url: weatherUrl,
         method: "GET"
@@ -37,12 +37,41 @@ function currentWeather (cityName) {
         var currentHumidity = response.main.humidity;
         var humidityTag = $("<h5>").text("Humidity: " + currentHumidity + "%");
         $("#today").append(humidityTag);
+        // uv index
+        var currentUVindex = response.main.uvIndex;
+        var uvTag = $("<h5>").text("UV Index: " + currentUVindex);
+        $("#today").append(uvTag);
     });
+
+    // function uvIndex(lon, lat) {
+    //     var uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    //     var lon = response.coord.lon;
+    //     var lat = response.coord.lat;
+
+    //     $.ajax({
+    //         url: uvUrl,
+    //         method: "GET"
+    //     }).then(function (currentUVindex) {
+    //         $("#uv-color").text(currentUVindex.value)
+
+    //         // Set color depending on uv index value
+    //         if (currentUVindex.value < 4.5) {
+    //             $("#uv-color").css("background-color", "green")
+    //         } else if (currentUVindex.value < 9 && currentUVindex.value >= 4.5) {
+    //             $("#uv-color").css("background-color", "yellow")
+    //         }
+    //         else {
+    //             $("#uv-color").css("background-color", "red")
+    //         };
+    //     });
+    // };
+
+    // uvIndex(lon, lat);
 };
 
 // function for forcast
-function forecast (cityName) {
-    
+function forecast(cityName) {
+
     var weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
 
     $.ajax({
@@ -107,7 +136,7 @@ function forecast (cityName) {
         $.ajax({
             url: symbolUrl,
             method: "GET"
-        }).then(function(response1){
+        }).then(function (response1) {
             console.log(response);
             $(".symbol1").empty()
             // add image tag with symbol from API to all 5 cards
@@ -129,37 +158,12 @@ function forecast (cityName) {
             var newImg5 = $(`<img src="${symbolUrl}">`);
             $(".symbol5").empty()
             $(".symbol5").append(newImg5);
-        });  
+        });
     });
 };
 
-// Calling UV Index API
-// var longitude = response.coord.lon;
-// var latitude = response.coord.lat;
-
+// // Calling UV Index API
 // uvIndex(longitude, latitude);
-
-// UV Index called from API
-function uvIndex(longitude, latitude) {
-    var uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${atitude}&lon=${longitude}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
-    var uvIndex = $("#uv-index")
-    $.ajax({
-        url: uvQuery,
-        method: "GET"
-    }).then(function (uvResponse) {
-        $("#uv-color").text(uvResponse.value)
-
-        // Set color depending on uv index value
-        if (uvResponse.value < 4.5) {
-            $("#uv-color").css("background-color", "green")
-        } else if (uvResponse.value < 9 && uvResponse.value >= 4.5) {
-            $("#uv-color").css("background-color", "yellow")
-        }
-        else {
-            $("#uv-color").css("background-color", "red")
-        }
-    });
-};
 
 // push user input city to array
 function pushCities() {
