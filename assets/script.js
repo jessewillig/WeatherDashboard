@@ -26,7 +26,7 @@ function currentWeather (cityName) {
         console.log(cityTag);
         // current temperature
         var currentTemp = response.main.temp;
-        var temperatureTag = $("<h5>").text("Temperature: " + currentTemp + " F");
+        var temperatureTag = $("<h5>").text("Temperature: " + currentTemp + "° F");
         $("#today").append(temperatureTag);
         console.log(currentTemp);
         // wind speed
@@ -55,7 +55,7 @@ function forecast (cityName) {
         var day1 = $("#day1").text("Date: " + response.list[0].dt_txt);
         $("#day1").append(day1);
 
-        var temperature1 = $(".currentTemperature1").text("Temperature: " + response.list[0].main.temp + " F");
+        var temperature1 = $(".currentTemperature1").text("Temperature: " + response.list[0].main.temp + "° F");
         $(".currentTemperature1").append(temperature1);
 
         var humidity1 = $(".currentHumidity1").text("Humidity: " + response.list[0].main.humidity + "%");
@@ -65,7 +65,7 @@ function forecast (cityName) {
         var day2 = $("#day2").text("Date: " + response.list[9].dt_txt);
         $("#day2").append(day2);
 
-        var temperature2 = $(".currentTemperature2").text("Temperature: " + response.list[9].main.temp + " F");
+        var temperature2 = $(".currentTemperature2").text("Temperature: " + response.list[9].main.temp + "° F");
         $(".currentTemperature2").append(temperature2);
 
         var humidity2 = $(".currentHumidity2").text("Humidity: " + response.list[9].main.humidity + "%");
@@ -75,7 +75,7 @@ function forecast (cityName) {
         var day3 = $("#day3").text("Date: " + response.list[17].dt_txt);
         $("#day3").append(day3);
 
-        var temperature3 = $(".currentTemperature3").text("Temperature: " + response.list[17].main.temp + " F");
+        var temperature3 = $(".currentTemperature3").text("Temperature: " + response.list[17].main.temp + "° F");
         $(".currentTemperature3").append(temperature3);
 
         var humidity3 = $(".currentHumidity3").text("Humidity: " + response.list[17].main.humidity + "%");
@@ -85,7 +85,7 @@ function forecast (cityName) {
         var day4 = $("#day4").text("Date: " + response.list[25].dt_txt);
         $("#day4").append(day4);
 
-        var temperature4 = $(".currentTemperature4").text("Temperature: " + response.list[25].main.temp + " F");
+        var temperature4 = $(".currentTemperature4").text("Temperature: " + response.list[25].main.temp + "° F");
         $(".currentTemperature4").append(temperature4);
 
         var humidity4 = $(".currentHumidity4").text("Humidity: " + response.list[25].main.humidity + "%");
@@ -95,7 +95,7 @@ function forecast (cityName) {
         var day5 = $("#day5").text("Date: " + response.list[33].dt_txt);
         $("#day5").append(day5);
 
-        var temperature5 = $(".currentTemperature5").text("Temperature: " + response.list[33].main.temp + " F");
+        var temperature5 = $(".currentTemperature5").text("Temperature: " + response.list[33].main.temp + "° F");
         $(".currentTemperature5").append(temperature5);
 
         var humidity5 = $(".currentHumidity5").text("Humidity: " + response.list[33].main.humidity + "%");
