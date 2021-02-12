@@ -8,3 +8,15 @@
 h1 {
     color: rgba(80, 151, 174);
 }
+
+.btn-success {
+    color: green;
+}
+
+.btn-caution {
+    color: yellow;
+}
+
+.btn-danger {
+    color: red;
+}

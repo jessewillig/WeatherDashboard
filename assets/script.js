@@ -16,6 +16,8 @@ function currentWeather(cityName) {
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        // var card = $("<div>").addClass("card");               
+        // var cardBody = $("<div>").addClass("card-body");
         $("#today").empty();
         $("#today").append(cityTag);
         console.log(cityTag);
@@ -38,33 +40,39 @@ function currentWeather(cityName) {
         var humidityTag = $("<h5>").text("Humidity: " + currentHumidity + "%");
         $("#today").append(humidityTag);
         // uv index
-        var currentUVindex = response.main.uvIndex;
-        var uvTag = $("<h5>").text("UV Index: " + currentUVindex);
-        $("#today").append(uvTag);
-        uvIndex(currentUVindex.coord.lat, currentUVindex.coord.lon);
+        // var currentUVindex = response.main.uvIndex;
+        // var uvTag = $("<h5>").text("UV Index: " + currentUVindex);
+        // $("#today").append(uvTag);
+        uvIndex(response.coord.lat, response.coord.lon);
     });
 };
 
-function uvIndex(lon, lat) {
+function uvIndex(lat, lon) {
     var uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
-    var lon = response.coord.lon;
-    var lat = response.coord.lat;
 
     $.ajax({
         url: uvUrl,
-        method: "GET"
-    }).then(function (currentUVindex) {
-        $("#uv-color").text(currentUVindex.value)
-
-        // Set color depending on uv index value
-        if (currentUVindex.value < 4.5) {
-            $("#uv-color").css("background-color", "green")
-        } else if (currentUVindex.value < 9 && currentUVindex.value >= 4.5) {
-            $("#uv-color").css("background-color", "yellow")
+        method: "GET",
+        dataType: "json",
+        success: function(response) {
+            var btn = $("<span>").addClass("btn btn-sm").text(response.value);
+            var uvIndex = $("<p>").text("UV Index: ");
+                    // Set color depending on uv index value
+        if (response.value < 3) {
+            btn.addClass("btn-success");
+        } else if (response.value < 7) {
+            btn.addClass("btn-caution");
         }
         else {
-            $("#uv-color").css("background-color", "red")
-        };
+            btn.addClass("btn-danger");
+        }
+
+        $("#today").append(uvIndex.append(btn));
+    },
+    // bodyEl.appendChild(uvIndexEl);
+    // uvIndexEl.appendChild(buttonEl);
+
+
     });
 };
 
@@ -187,7 +195,7 @@ function getCities() {
 
 // create new button when user searches for city
 function createBtn(event) {
-    $("#today").empty();
+    // $("#today").empty();
     for (var i = 0; i < cities.length; i++) {
         var city = cities[i];
         var newBtn = $("<button>").text(city);
