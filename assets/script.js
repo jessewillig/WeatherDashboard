@@ -41,32 +41,31 @@ function currentWeather(cityName) {
         var currentUVindex = response.main.uvIndex;
         var uvTag = $("<h5>").text("UV Index: " + currentUVindex);
         $("#today").append(uvTag);
+        uvIndex(currentUVindex.coord.lat, currentUVindex.coord.lon);
     });
+};
 
-    // function uvIndex(lon, lat) {
-    //     var uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
-    //     var lon = response.coord.lon;
-    //     var lat = response.coord.lat;
+function uvIndex(lon, lat) {
+    var uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=9af1f8786adac9fdc9f8dfe42ab5e0e5`;
+    var lon = response.coord.lon;
+    var lat = response.coord.lat;
 
-    //     $.ajax({
-    //         url: uvUrl,
-    //         method: "GET"
-    //     }).then(function (currentUVindex) {
-    //         $("#uv-color").text(currentUVindex.value)
+    $.ajax({
+        url: uvUrl,
+        method: "GET"
+    }).then(function (currentUVindex) {
+        $("#uv-color").text(currentUVindex.value)
 
-    //         // Set color depending on uv index value
-    //         if (currentUVindex.value < 4.5) {
-    //             $("#uv-color").css("background-color", "green")
-    //         } else if (currentUVindex.value < 9 && currentUVindex.value >= 4.5) {
-    //             $("#uv-color").css("background-color", "yellow")
-    //         }
-    //         else {
-    //             $("#uv-color").css("background-color", "red")
-    //         };
-    //     });
-    // };
-
-    // uvIndex(lon, lat);
+        // Set color depending on uv index value
+        if (currentUVindex.value < 4.5) {
+            $("#uv-color").css("background-color", "green")
+        } else if (currentUVindex.value < 9 && currentUVindex.value >= 4.5) {
+            $("#uv-color").css("background-color", "yellow")
+        }
+        else {
+            $("#uv-color").css("background-color", "red")
+        };
+    });
 };
 
 // function for forcast
@@ -161,9 +160,6 @@ function forecast(cityName) {
         });
     });
 };
-
-// // Calling UV Index API
-// uvIndex(longitude, latitude);
 
 // push user input city to array
 function pushCities() {
