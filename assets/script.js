@@ -71,8 +71,6 @@ function uvIndex(lat, lon) {
     },
     // bodyEl.appendChild(uvIndexEl);
     // uvIndexEl.appendChild(buttonEl);
-
-
     });
 };
 

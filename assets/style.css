@@ -14,7 +14,8 @@ h1 {
 }
 
 .btn-caution {
-    color: yellow;
+    color: rgb(253, 216, 5);
+    background-color: rgb(255, 255, 0);
 }
 
 .btn-danger {
