@@ -20,6 +20,7 @@ function currentWeather(cityName) {
         // var cardBody = $("<div>").addClass("card-body");
         $("#today").empty();
         $("#today").append(cityTag);
+        console.log(cityTag);
         // current city name
         var currentCity = response.name;
         var cityTag = $("<h2>").text(currentCity);
@@ -140,7 +141,8 @@ function forecast(cityName) {
         $.ajax({
             url: symbolUrl,
             method: "GET"
-        }).then(function () {
+        }).then(function (response1) {
+            console.log(response);
             $(".symbol1").empty()
             // add image tag with symbol from API to all 5 cards
             var newImg1 = $(`<img src="${symbolUrl}">`);
