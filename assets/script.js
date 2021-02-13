@@ -141,7 +141,7 @@ function forecast(cityName) {
         $.ajax({
             url: symbolUrl,
             method: "GET"
-        }).then(function (response1) {
+        }).then(function (response) {
             console.log(response);
             $(".symbol1").empty()
             // add image tag with symbol from API to all 5 cards
