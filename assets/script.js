@@ -193,20 +193,19 @@ function getCities() {
 
 // create new button when user searches for city
 function createBtn(event) {
-    // $("#today").empty();
+    // $(".searchList").empty();
     for (var i = 0; i < cities.length; i++) {
         var city = cities[i];
         var newBtn = $("<button>").text(city);
         $("button").addClass("newSearch");
+    };
         $(".history").append(newBtn);
         $(newBtn).click(function searchHistory(event) {
             var city = $(this).text();
             console.log(city);
             forecast(city);
             currentWeather(city);
-            // localStorage.removeItem(currentWeather);
         });
-    };
 };
 
 getCities();
