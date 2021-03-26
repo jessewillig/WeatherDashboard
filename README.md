@@ -1,4 +1,4 @@
-# hw6-WeatherDashboard
+# WeatherDashboard
 
 This weather Dashboard is designed to give you current, up-to-date weather whenever you need it for whichever city of your choosing!
 
