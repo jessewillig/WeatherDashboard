@@ -21,3 +21,8 @@ h1 {
 .btn-danger {
     color: red;
 }
+
+body {
+    background-color: rgb(123, 133, 146);
+    color: white;
+}
